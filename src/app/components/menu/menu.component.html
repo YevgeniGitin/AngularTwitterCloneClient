@@ -1,0 +1,9 @@
+<div class="menu">
+    <div class="menu-options">
+        <button routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{'Home'|translation:language}}</button>
+        <button *ngIf="!(islogedin|async)" routerLink="/logIn" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{'LogIn'|translation:language}}</button>
+        <button *ngIf="!(islogedin|async)" routerLink="/register" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{'Register'|translation:language}}</button>
+        <button *ngIf="islogedin|async" (click)="logOut()">{{'LogOut'|translation:language}}</button>
+    </div>
+    <app-language-select></app-language-select>
+</div>

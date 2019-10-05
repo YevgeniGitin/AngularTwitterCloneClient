@@ -1,0 +1,24 @@
+<div class="container">
+    <app-title>Register Form</app-title>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+            <input name="email" matInput type="email" placeholder="Email" formControlName="emailInput">
+            <mat-error *ngIf="emailInput.errors?.required">"Email is required"</mat-error>
+            <mat-error *ngIf="emailInput.errors?.pattern">"Email is invalid"</mat-error>
+        </mat-form-field>
+        <mat-error *ngIf="emailExists">"The email is already in use"</mat-error>
+
+        <mat-form-field>
+            <input name="userName" matInput type="text" placeholder="User Name" formControlName="userNameInput">
+            <mat-error *ngIf="userNameInput.errors?.required">"User name is required"</mat-error>
+        </mat-form-field>
+        <mat-error *ngIf="userNameExists">"This user name is already exists"</mat-error>
+
+        <mat-form-field>
+            <input name="password" matInput type="password" placeholder="Password" formControlName="passwordInput">
+            <mat-error *ngIf="passwordInput.errors?.pattern">"Password should include at least 8 characters and at least one capital letter and one number"</mat-error>
+        </mat-form-field>
+
+        <button type="submit" mat-stroked-button color="primary" [disabled]="this.registerForm.invalid">Register</button>
+    </form>
+</div>

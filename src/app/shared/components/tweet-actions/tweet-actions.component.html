@@ -1,0 +1,5 @@
+<div class="actions-container">
+    <button *ngIf="(islogedin|async) && (isMyTweet|async)" mat-icon-button (click)="deletePost()"> <mat-icon>delete</mat-icon></button>
+    <button *ngIf="islogedin|async" mat-icon-button (click)="openDialog()"> <mat-icon>reply</mat-icon></button>
+    <button [disabled]="!(islogedin|async)" mat-icon-button (click)="clickedOnStar()"> <mat-icon [matBadge]="tweet.stars.length">grade</mat-icon></button>
+</div>

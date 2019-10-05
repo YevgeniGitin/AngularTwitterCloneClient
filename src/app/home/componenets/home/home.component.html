@@ -1,0 +1,4 @@
+<div class="home">
+    <app-post-form *ngIf="isLogedIn|async"></app-post-form>
+    <app-tweet-list [tweets]="tweets"></app-tweet-list>
+</div>

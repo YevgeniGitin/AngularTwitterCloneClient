@@ -1,0 +1,15 @@
+.home {
+    width: 95%;
+    margin: 1rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+app-post-form {
+    width: 95%;
+}
+
+app-tweet-list {
+    width: 100%;
+}

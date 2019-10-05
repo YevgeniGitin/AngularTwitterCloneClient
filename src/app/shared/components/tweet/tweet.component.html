@@ -1,0 +1,16 @@
+<div class="tweet">
+    <div class="tweet-cart">
+        <img [src]="this.tweet.img" alt="profile image">
+        <div class="tweet-data">
+            <div class="user-info">
+                <label (click)="openProfile(this.tweet.userName)">{{this.tweet.userName}} </label>
+                <label>-</label>
+                <label>{{this.tweet.date}} </label>
+            </div>
+            <div class="post">
+                <label>{{this.tweet.text}}</label>
+            </div>
+        </div>
+    </div>
+    <app-tweet-actions [tweet]=tweet></app-tweet-actions>
+</div>

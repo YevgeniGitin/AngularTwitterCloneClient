@@ -1,0 +1,70 @@
+.tweet {
+    width: 100%;
+    height: 15rem;
+    display: flex;
+    margin-top: 1rem;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 255, 255, 0.219);
+    -webkit-border-radius: 1.5rem;
+    border-radius: 1.5rem;
+}
+
+.tweet-cart {
+    width: 95%;
+    height: 85%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+img {
+    max-width: 20%;
+    max-height: 100%
+}
+
+.tweet-data {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.user-info {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.user-info>label {
+    margin-left: 1rem;
+}
+
+.user-info>label:first-child:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.user-info>label:first-child {
+    margin-left: 0;
+}
+
+.post {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    justify-content: flex-start;
+    overflow: auto;
+}
+
+.post>label {
+    width: 100%;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+app-tweet-actions {
+    width: 95%;
+}
