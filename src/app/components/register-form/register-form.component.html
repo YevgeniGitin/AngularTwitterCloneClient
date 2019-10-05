@@ -1,24 +1,24 @@
 <div class="container">
-    <app-title>Register Form</app-title>
+    <app-title>{{'Register Form'|translation:language}}</app-title>
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <mat-form-field>
-            <input name="email" matInput type="email" placeholder="Email" formControlName="emailInput">
-            <mat-error *ngIf="emailInput.errors?.required">"Email is required"</mat-error>
-            <mat-error *ngIf="emailInput.errors?.pattern">"Email is invalid"</mat-error>
+            <input name="email" matInput type="email" placeholder="{{'Email'|translation:language}}" formControlName="emailInput">
+            <mat-error *ngIf="emailInput.errors?.required">{{'Email is required'|translation:language}}</mat-error>
+            <mat-error *ngIf="emailInput.errors?.email">{{'Email is invalid'|translation:language}}</mat-error>
         </mat-form-field>
-        <mat-error *ngIf="emailExists">"The email is already in use"</mat-error>
+        <mat-error *ngIf="emailExists&&!emailInput.errors?.required&&!emailInput.errors?.email">{{'The email is already in use'|translation:language}}</mat-error>
 
         <mat-form-field>
-            <input name="userName" matInput type="text" placeholder="User Name" formControlName="userNameInput">
-            <mat-error *ngIf="userNameInput.errors?.required">"User name is required"</mat-error>
+            <input name="userName" matInput type="text" placeholder="{{'User name'|translation:language}}" formControlName="userNameInput">
+            <mat-error *ngIf="userNameInput.errors?.required">{{'User name is required'|translation:language}}</mat-error>
         </mat-form-field>
-        <mat-error *ngIf="userNameExists">"This user name is already exists"</mat-error>
+        <mat-error *ngIf="userNameExists&&!userNameInput.errors?.required">{{'This user name is already exists'|translation:language}}</mat-error>
 
         <mat-form-field>
-            <input name="password" matInput type="password" placeholder="Password" formControlName="passwordInput">
-            <mat-error *ngIf="passwordInput.errors?.pattern">"Password should include at least 8 characters and at least one capital letter and one number"</mat-error>
+            <input name="password" matInput type="password" placeholder="{{'Password'|translation:language}}" formControlName="passwordInput">
+            <mat-error *ngIf="passwordInput.errors?.pattern">{{'Password should include at least 8 characters and at least one capital letter and one number'|translation:language}}</mat-error>
         </mat-form-field>
 
-        <button type="submit" mat-stroked-button color="primary" [disabled]="this.registerForm.invalid">Register</button>
+        <button type="submit" mat-stroked-button color="primary" [disabled]="this.registerForm.invalid">{{'Register'|translation:language}}</button>
     </form>
 </div>

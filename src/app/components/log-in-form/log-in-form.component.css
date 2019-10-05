@@ -23,9 +23,14 @@ button {
 
 mat-form-field {
     width: 90%;
-    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+mat-error {
+    width: 90%;
+    text-align: center;
 }
 
 app-title {
-    width: 50%;
+    width: 70%;
 }

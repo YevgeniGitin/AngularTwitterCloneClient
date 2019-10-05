@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../../core/models/user';
 import { UserService } from '../../core/services/user.service';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { LocalizationService } from '../../core/services/localization.service';
 
 const passwordPattern:string='^(?=.*?[A-Z])(?=.*?[0-9]).{8,}$';
+const profileImage:string='../../../assets/img/profile.png';
 
 @Component({
   selector: 'app-register-form',
@@ -12,17 +15,20 @@ const passwordPattern:string='^(?=.*?[A-Z])(?=.*?[0-9]).{8,}$';
   styleUrls: ['./register-form.component.css']
 })
 
-export class RegisterFormComponent implements OnInit {
+export class RegisterFormComponent implements OnInit, OnDestroy {
   userNameExists:boolean=false;
   emailExists:boolean=false;
   registerForm: FormGroup;
+  language:string;
+  sub: Subscription;
 
-  constructor( private fb: FormBuilder,private userService:UserService,private router:Router) { 
+  constructor( private fb: FormBuilder,private userService:UserService,private router:Router, private localizationService:LocalizationService) { 
     this.registerForm = this.fb.group({
       emailInput: ['', [Validators.required, Validators.email]],
       userNameInput: ['',Validators.required],
       passwordInput: ['', [Validators.required,Validators.pattern(passwordPattern)]],
     });
+    this.sub=this.localizationService.selectedLanguage.subscribe(ln=>this.language=ln);
   }
 
   ngOnInit() {
@@ -44,7 +50,7 @@ export class RegisterFormComponent implements OnInit {
   onSubmit(){
     const formModel = this.registerForm.value;
     let user:User={
-      img:"../../../assets/img/profile.png",
+      img: profileImage,
       email: formModel.emailInput,
       userName: formModel.userNameInput,
       password: formModel.passwordInput,
@@ -64,4 +70,7 @@ export class RegisterFormComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(){
+    this.sub.unsubscribe();
+  }
 }

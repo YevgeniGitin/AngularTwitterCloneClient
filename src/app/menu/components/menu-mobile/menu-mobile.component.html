@@ -1,0 +1,9 @@
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>view_headline</mat-icon>
+      </button>
+<mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="home">{{'Home'|translation:language}}</button>
+    <button mat-menu-item *ngIf="!(islogedin|async)" routerLink="logIn">{{'LogIn'|translation:language}}</button>
+    <button mat-menu-item *ngIf="!(islogedin|async)" routerLink="register">{{'Register'|translation:language}}</button>
+    <button mat-menu-item *ngIf="islogedin|async" (click)="logOut()">{{'LogOut'|translation:language}}</button>
+</mat-menu>

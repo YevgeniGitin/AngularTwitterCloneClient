@@ -19,14 +19,14 @@
 .menu-options>button {
     background: none;
     height: 100%;
-    font-size: 2vw;
+    font-size: 1rem;
     margin: 0;
     padding: 0 1rem 0 1rem;
     border: 0;
     border-right: 1px solid black;
 }
 
-button:focus {
+.menu-options>button:focus {
     outline: none;
 }
 
@@ -36,11 +36,23 @@ button:focus {
 
 .active {
     background-color: #1da1f2 !important;
-    /* background-color: rgba(0, 26, 255, 0.986) !important; */
     text-decoration: none;
 }
 
-button:hover {
+.menu-options>button:hover {
     text-decoration: underline;
     cursor: pointer;
+}
+
+.menu-mobile_options {
+    display: none;
+}
+
+@media (max-width: 425px) {
+    .menu-options {
+        display: none;
+    }
+    .menu-mobile_options {
+        display: inline;
+    }
 }

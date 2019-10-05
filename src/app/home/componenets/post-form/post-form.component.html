@@ -2,6 +2,6 @@
     <textarea name="post" cols="30" rows="10" [(ngModel)]="post" #postInput="ngModel" required maxlength="240"></textarea>
     <div class="postBtn">
         <label>{{postInput.value?postInput.value.length:0}}/240</label>
-        <button type="submit" mat-stroked-button color="primary" [disabled]="postForm.form.invalid">Post</button>
+        <button type="submit" mat-stroked-button color="primary" [disabled]="postForm.form.invalid">{{'Post'|translation:language}}</button>
     </div>
 </form>

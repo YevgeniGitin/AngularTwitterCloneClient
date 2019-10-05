@@ -1,18 +1,17 @@
 <div class="container">
-    <app-title>LogIn Form</app-title>
+    <app-title>{{'LogIn Form'|translation:language}}</app-title>
     <form (ngSubmit)="onSubmit()" #logInForm="ngForm">
         <mat-form-field>
-            <input name="email" matInput type="email" placeholder="Email" [(ngModel)]="email" #emailInput="ngModel" required email>
-            <mat-error *ngIf="emailInput.errors?.required">"Email is required"</mat-error>
-            <mat-error *ngIf="emailInput.errors?.email">"Email is invalid"</mat-error>
+            <input name="email" matInput type="email" placeholder="{{'Email'|translation:language}}" [(ngModel)]="email" #emailInput="ngModel" required email>
+            <mat-error *ngIf="emailInput.errors?.required">{{'Email is required'|translation:language}}</mat-error>
+            <mat-error *ngIf="emailInput.errors?.email">{{'Email is invalid'|translation:language}}</mat-error>
         </mat-form-field>
         <mat-form-field>
-            <input name="password" matInput type="password" placeholder="Password" [(ngModel)]="password" #passwordInput="ngModel" required>
-            <mat-error *ngIf="passwordInput.errors?.required">"Password is required"</mat-error>
+            <input name="password" matInput type="password" placeholder="{{'Password'|translation:language}}" [(ngModel)]="password" #passwordInput="ngModel" required>
+            <mat-error *ngIf="passwordInput.errors?.required">{{'Password is required'|translation:language}}</mat-error>
         </mat-form-field>
 
-        <button type="submit" mat-stroked-button color="primary" [disabled]="logInForm.form.invalid">LogIn</button>
-        <mat-error *ngIf="!success">email or password is incorrect!!!!!!!</mat-error>
-
+        <button type="submit" mat-stroked-button color="primary" [disabled]="logInForm.form.invalid">{{'LogIn'|translation:language}}</button>
+        <mat-error *ngIf="!success">{{'email or password is incorrect!!!!!!!'|translation:language}}</mat-error>
     </form>
 </div>

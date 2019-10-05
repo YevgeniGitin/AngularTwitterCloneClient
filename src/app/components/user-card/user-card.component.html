@@ -1,8 +1,8 @@
 <div class="cart">
-    <img [src]="user.img" alt="profile image">
+    <img [src]="user?user.img:''" alt="profile image">
     <div class="cart-user_data">
-        <label>user name: {{user.userName}}</label>
-        <label>registration date: {{user.registrationDate}}</label>
-        <label>last logIn date: {{user.lastLoginDate}}</label>
+        <label><b>{{'User name'|translation:language}}:</b> {{user?user.userName:''}}</label>
+        <label><b>{{'Registration date'|translation:language}}:</b> {{user?user.registrationDate:''}}</label>
+        <label><b>{{'Last logIn date'|translation:language}}:</b> {{user?user.lastLoginDate:''}}</label>
     </div>
 </div>

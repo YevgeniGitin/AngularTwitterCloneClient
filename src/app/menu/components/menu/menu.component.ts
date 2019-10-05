@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UserService } from '../../core/services/user.service';
+import { UserService } from '../../../core/services/user.service';
 import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { LocalizationService } from '../../core/services/localization.service';
+import { LocalizationService } from '../../../core/services/localization.service';
 
 @Component({
   selector: 'app-menu',
