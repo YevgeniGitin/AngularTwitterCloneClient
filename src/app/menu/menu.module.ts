@@ -4,9 +4,9 @@ import { MenuComponent } from './components/menu/menu.component';
 import { MenuMobileComponent } from './components/menu-mobile/menu-mobile.component';
 import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material/material.module';
-import { MenuRoutingModule } from './menu-routing.module';
 import { LanguageSelectComponent } from './components/language-select/language-select.component';
 import { FormsModule } from '@angular/forms';
+import { UserAuthenticationRoutingModule } from '../user-authentication/user-authentication-routing.module';
 
 
 
@@ -16,8 +16,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     SharedModule,
     MaterialModule,
-    MenuRoutingModule,
-    FormsModule
+    FormsModule,
+    UserAuthenticationRoutingModule
   ],
   exports: [MenuComponent]
 })

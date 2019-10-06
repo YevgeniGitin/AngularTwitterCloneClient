@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from '../../core/models/user';
-import { UserService } from '../../core/services/user.service';
+import { User } from '../../../core/models/user';
+import { UserService } from '../../../core/services/user.service';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { LocalizationService } from '../../core/services/localization.service';
+import { LocalizationService } from '../../../core/services/localization.service';
 
 const passwordPattern:string='^(?=.*?[A-Z])(?=.*?[0-9]).{8,}$';
 const profileImage:string='../../../assets/img/profile.png';

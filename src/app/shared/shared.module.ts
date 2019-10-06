@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { TweetComponent } from './components/tweet/tweet.component';
 import { TweetActionsComponent } from './components/tweet-actions/tweet-actions.component';
 import { TweetListComponent } from './components/tweet-list/tweet-list.component';
+import { TitleComponent } from './components/title/title.component';
 
 @NgModule({
   entryComponents: [DialogBoxComponent],
@@ -15,7 +16,8 @@ import { TweetListComponent } from './components/tweet-list/tweet-list.component
     DialogBoxComponent,
     TweetComponent,
     TweetActionsComponent,
-    TweetListComponent
+    TweetListComponent,
+    TitleComponent
   ],
   imports: [CommonModule, MaterialModule, FormsModule],
   exports: [
@@ -23,7 +25,8 @@ import { TweetListComponent } from './components/tweet-list/tweet-list.component
     DialogBoxComponent,
     TweetComponent,
     TweetActionsComponent,
-    TweetListComponent
+    TweetListComponent,
+    TitleComponent
   ]
 })
 export class SharedModule {}

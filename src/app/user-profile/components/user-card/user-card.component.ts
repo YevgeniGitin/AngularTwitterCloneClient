@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { User } from '../../core/models/user';
+import { User } from '../../../core/models/user';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { LocalizationService } from '../../core/services/localization.service';
+import { LocalizationService } from '../../../core/services/localization.service';
 
 @Component({
   selector: 'app-user-card',

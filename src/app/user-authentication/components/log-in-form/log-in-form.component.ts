@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../../core/services/user.service';
+import { UserService } from '../../../core/services/user.service';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { LocalizationService } from '../../core/services/localization.service';
+import { LocalizationService } from '../../../core/services/localization.service';
 @Component({
   selector: 'app-log-in-form',
   templateUrl: './log-in-form.component.html',

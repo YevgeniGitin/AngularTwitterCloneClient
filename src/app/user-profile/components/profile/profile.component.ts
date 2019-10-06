@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { Post } from '../../core/models/post';
-import { User } from '../../core/models/user';
-import { PostService } from '../../core/services/post.service';
-import { UserService } from '../../core/services/user.service';
+import { Post } from '../../../core/models/post';
+import { User } from '../../../core/models/user';
+import { PostService } from '../../../core/services/post.service';
+import { UserService } from '../../../core/services/user.service';
 
 @Component({
   selector: 'app-profile',
