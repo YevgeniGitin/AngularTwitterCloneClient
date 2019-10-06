@@ -14,7 +14,7 @@ import { UserProfileModule } from './user-profile/user-profile.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     HomeModule,

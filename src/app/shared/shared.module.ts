@@ -8,6 +8,7 @@ import { TweetComponent } from './components/tweet/tweet.component';
 import { TweetActionsComponent } from './components/tweet-actions/tweet-actions.component';
 import { TweetListComponent } from './components/tweet-list/tweet-list.component';
 import { TitleComponent } from './components/title/title.component';
+import { ConfirmationDirective } from './directives/confirmation.directive';
 
 @NgModule({
   entryComponents: [DialogBoxComponent],
@@ -17,7 +18,8 @@ import { TitleComponent } from './components/title/title.component';
     TweetComponent,
     TweetActionsComponent,
     TweetListComponent,
-    TitleComponent
+    TitleComponent,
+    ConfirmationDirective
   ],
   imports: [CommonModule, MaterialModule, FormsModule],
   exports: [
@@ -26,7 +28,8 @@ import { TitleComponent } from './components/title/title.component';
     TweetComponent,
     TweetActionsComponent,
     TweetListComponent,
-    TitleComponent
+    TitleComponent,
+    ConfirmationDirective
   ]
 })
 export class SharedModule {}

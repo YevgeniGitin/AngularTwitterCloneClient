@@ -53,8 +53,10 @@ export class TweetActionsComponent implements OnInit, OnDestroy{
 
   }
 
-  deletePost(){
-    this.postService.deletePost(this.tweet.id);
+  deletePost(e){
+    if(e){
+      this.postService.deletePost(this.tweet.id);
+    }
   }
 
   clickedOnStar(){
