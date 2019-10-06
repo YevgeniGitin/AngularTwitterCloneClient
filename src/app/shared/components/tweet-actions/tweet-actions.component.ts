@@ -8,6 +8,7 @@ import { User } from '../../../core/models/user';
 import {MatDialog} from '@angular/material';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 import { DatePipe } from '@angular/common';
+import { LocalizationService } from '../../../core/services/localization.service';
 
 
 @Component({
@@ -24,8 +25,12 @@ export class TweetActionsComponent implements OnInit, OnDestroy{
   sub2: Subscription;
   connectUser:User;
   post:string;
+  language:string;
+  subLanguage: Subscription;
 
-  constructor(private userService:UserService, private postService:PostService, public dialog: MatDialog,private datePipe: DatePipe) {}
+  constructor(private userService:UserService, private postService:PostService, public dialog: MatDialog,private datePipe: DatePipe, private localizationService:LocalizationService) {
+    this.subLanguage=this.localizationService.selectedLanguage.subscribe(ln=>this.language=ln);
+  }
 
   ngOnInit() {
     this.islogedin=this.userService.isLogedIn();
@@ -72,6 +77,9 @@ export class TweetActionsComponent implements OnInit, OnDestroy{
     }
     if(this.sub2){
       this.sub2.unsubscribe();
+    }
+    if(this.subLanguage){
+      this.subLanguage.unsubscribe();
     }
   }
 }

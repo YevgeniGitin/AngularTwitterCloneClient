@@ -9,7 +9,7 @@ export class ConfirmationDirective {
   
   constructor() { }
 
-  @HostListener('click') 
+  @HostListener('click',['$event']) 
   askConfirmation(event: MouseEvent) {
     if(confirm(this.appConfirmation)) {
       this.confirmation.emit(true);
