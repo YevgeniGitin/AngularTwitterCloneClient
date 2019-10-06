@@ -3,6 +3,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { UserService } from './services/user.service';
 import { LocalizationService } from './services/localization.service';
 import { PostService } from './services/post.service';
+import { LoggerInterceptor } from './logger.interceptor';
 
 
 
@@ -11,7 +12,8 @@ import { PostService } from './services/post.service';
     UserService,
     LocalizationService,
     PostService,
-    DatePipe
+    DatePipe,
+    LoggerInterceptor
   ],
   imports: [
     CommonModule
