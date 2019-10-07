@@ -4,6 +4,7 @@ import { UserService } from './services/user.service';
 import { LocalizationService } from './services/localization.service';
 import { PostService } from './services/post.service';
 import { LoggerInterceptor } from './logger.interceptor';
+import { LogInGuard } from './guards/log-in.guard';
 
 
 
@@ -13,7 +14,8 @@ import { LoggerInterceptor } from './logger.interceptor';
     LocalizationService,
     PostService,
     DatePipe,
-    LoggerInterceptor
+    LoggerInterceptor,
+    LogInGuard
   ],
   imports: [
     CommonModule
