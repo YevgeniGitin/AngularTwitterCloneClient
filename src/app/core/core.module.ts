@@ -3,10 +3,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { UserService } from './services/user.service';
 import { LocalizationService } from './services/localization.service';
 import { PostService } from './services/post.service';
-import { LoggerInterceptor } from './logger.interceptor';
-import { LogInGuard } from './guards/log-in.guard';
-
-
+import { AuthInterceptor } from './auth.interceptor';
 
 @NgModule({
   providers: [
@@ -14,8 +11,7 @@ import { LogInGuard } from './guards/log-in.guard';
     LocalizationService,
     PostService,
     DatePipe,
-    LoggerInterceptor,
-    LogInGuard
+    AuthInterceptor
   ],
   imports: [
     CommonModule

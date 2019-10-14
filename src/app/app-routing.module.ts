@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ProfileComponent } from './user-profile/components/profile/profile.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
-  {path: '',redirectTo:"/home", pathMatch:"full" }
+  {path: '',redirectTo:'/home', pathMatch:'full' },
+  {path: '**',component: NotFoundComponent }
 ];
 
 @NgModule({

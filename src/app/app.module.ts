@@ -11,26 +11,29 @@ import { SharedModule } from './shared/shared.module';
 import { MenuModule } from './menu/menu.module';
 import { UserAuthenticationModule } from './user-authentication/user-authentication.module';
 import { UserProfileModule } from './user-profile/user-profile.module';
-import { LoggerInterceptor } from './core/logger.interceptor';
+import { AuthInterceptor } from './core/auth.interceptor';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    NotFoundComponent,
   ],
   imports: [
     HomeModule,
+    UserProfileModule,
+    UserAuthenticationModule,
     SharedModule,
     CoreModule,
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    UserAuthenticationModule,
     MenuModule,
-    UserProfileModule
+    BrowserAnimationsModule,
+    AppRoutingModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: LoggerInterceptor, multi: true }],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

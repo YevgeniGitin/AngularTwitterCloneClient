@@ -24,7 +24,6 @@ export class LogInFormComponent implements OnInit, OnDestroy {
 
   onSubmit(){
     this.success=this.userService.logIn(this.email,this.password);
-    console.log(this.success);
     if(this.success){
       this.router.navigate(['home'])
     }
