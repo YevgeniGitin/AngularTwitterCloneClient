@@ -1,13 +1,13 @@
 <div class="tweet">
     <div class="tweet-cart">
         <div class="profile-img">
-            <img [src]="this.tweet.img" alt="profile image">
+            <img [src]="this.tweet.avatarUrl" alt="profile image">
         </div>
         <div class="tweet-data">
             <div class="user-info">
-                <label (click)="openProfile(this.tweet.userName)">{{this.tweet.userName}} </label>
+                <label (click)="openProfile(this.tweet.userId)">{{this.tweet.userHandle}} </label>
                 <label>-</label>
-                <label>{{this.tweet.date}} </label>
+                <label>{{this.tweet.postDate}} </label>
             </div>
             <div class="post">
                 <label>{{this.tweet.text}}</label>

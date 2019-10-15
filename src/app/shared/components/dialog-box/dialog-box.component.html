@@ -2,11 +2,11 @@
     <h1 mat-dialog-title>{{'Reply Window'|translation:language}}</h1>
     <div mat-dialog-content>
         <p>{{'Write your reply message'|translation:language}}</p>
-        <textarea [(ngModel)]="post" #postInput="ngModel" required maxlength="240"></textarea>
+        <textarea [(ngModel)]="newPost" #postInput="ngModel" required maxlength="240"></textarea>
         <label>{{postInput.value?postInput.value.length:0}}/240</label>
     </div>
     <div mat-dialog-actions>
-        <button [disabled]="postInput.invalid" mat-button [mat-dialog-close]="post" cdkFocusInitial>{{'Post'|translation:language}}</button>
-        <button mat-button [mat-dialog-close]="false">{{'No Thanks'|translation:language}}</button>
+        <button [disabled]="postInput.invalid" (click)="post()" mat-button [mat-dialog-close] cdkFocusInitial>{{'Post'|translation:language}}</button>
+        <button mat-button [mat-dialog-close]>{{'No Thanks'|translation:language}}</button>
     </div>
 </div>

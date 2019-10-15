@@ -4,9 +4,9 @@
         "Email is required", "Email is invalid", "Password",
         "Password is required,", "email or password is incorrect!!!!!!!",
         "Register Form", "User name", "User name is required",
-        "This user name is already exists",
+        "User name is already in use",
         "Password should include at least 8 characters and at least one capital letter and one number",
-        "The email is already in use", "Registration date", "Last logIn date", "Post", "Reply Window",
+        "Email is already in use", "Registration date", "Last logIn date", "Post", "Reply Window",
         "Write your reply message", "No Thanks", "Are you sure you want to delete?"
 
     ],

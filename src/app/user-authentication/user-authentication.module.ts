@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material/material.module';
 import { UserAuthenticationRoutingModule } from './user-authentication-routing.module';
+import { LogInGuard } from '../core/guards/log-in.guard';
 
 
 
@@ -17,7 +18,8 @@ import { UserAuthenticationRoutingModule } from './user-authentication-routing.m
     ReactiveFormsModule,
     MaterialModule,
     SharedModule,
-    UserAuthenticationRoutingModule
-  ]
+    UserAuthenticationRoutingModule,
+  ],
+  providers:[LogInGuard]
 })
 export class UserAuthenticationModule { }

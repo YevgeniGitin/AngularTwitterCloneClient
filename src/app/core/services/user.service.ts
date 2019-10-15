@@ -1,94 +1,142 @@
-import { Injectable } from '@angular/core';
-import { User } from '../models/user';
+import { Injectable, OnDestroy } from '@angular/core';
+import {UserToken, GetUser, LogInUser, GetUserAfterLoginOrRegister, RegisterUser} from '../models/user';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { map, tap, catchError, shareReplay } from 'rxjs/operators';
+import { Observable, BehaviorSubject, Subscription, of } from 'rxjs';
 import { DatePipe } from '@angular/common';
+import * as jwt_decode from 'jwt-decode';
+import { Router } from '@angular/router';
 
-const url = '../../../assets/data/users.json';
+const authUrl = 'http://localhost:3001/api/auth/';
+const memberUrl = 'http://localhost:3001/api/members/';
 
 @Injectable()
-export class UserService {
-  private users: User[];
-  usersPromise: Promise<User[]>;
-  private usersBehaviorSubject = new BehaviorSubject<User[]>(null);
-  readonly allUsers = this.usersBehaviorSubject.asObservable();
-  private userBehaviorSubject = new BehaviorSubject<User>(null);
+export class UserService implements OnDestroy {
+  private userBehaviorSubject = new BehaviorSubject<GetUser>(null);
   readonly connectUser = this.userBehaviorSubject.asObservable();
-  //
-  constructor(private http: HttpClient,private datePipe: DatePipe) {
-    this.usersPromise = this.loadInitialData(url);
-    this.usersPromise.then(users => {
-      this.users = users;
-      this.usersBehaviorSubject.next(this.users);
-      if (localStorage.getItem('user')) {
-        let user = users.find(u => u.userName === localStorage.getItem('user'));
-        this.logIn(user.email, user.password);
-      }
-    });
-  }
+  private msgBehaviorSubject = new BehaviorSubject<string>(null);
+  readonly msg = this.msgBehaviorSubject.asObservable();
+  private token: UserToken;
+  loginSub: Subscription;
+  registerSub: Subscription;
 
-  private loadInitialData(url: string): Promise<User[]> {
-    return this.http
-      .get(url)
-      .pipe(map(json => json as User[]))
-      .toPromise()
-      .catch(this.handleError);
+  //check if has token in local storage
+  constructor(private http: HttpClient, private datePipe: DatePipe, private router: Router) {
+    let token: string = localStorage.getItem('token');
+    if (token) {
+      this.token = this.getDecodedToken(token);
+      this.loginSub = this.getUserById(this.token.id).subscribe(user =>
+        this.userBehaviorSubject.next(user)
+      );
+    }
   }
-
+  //get token and decode him
+  private getDecodedToken(token: string): UserToken {
+    try {
+      return jwt_decode(token);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  //error
   private handleError(error: Response) {
     console.error(error);
     const msg = `Error status code ${error.status} at ${error.url}`;
-    return Promise.reject(msg || error);
-  } 
-
-  getUser(userName:string):Observable<User>{
-    return this.allUsers.pipe(map(users=>{
-      return users? users.find(eachUser=>eachUser.userName===userName) : null;
-    }));
+    return Observable.throw(msg);
   }
-
-  getNowDate():string{
-    return this.datePipe.transform(new Date(),'dd/MM/yyyy');
+  //return observable user by id
+  getUserById(userId: string): Observable<GetUser> {
+    return this.http.get(`${memberUrl}${userId}`).pipe(
+      map(json => json as GetUser),
+      catchError(this.handleError)
+    );
   }
-
+  //log in function
   logIn(email: string, password: string): boolean {
-    let user = this.users.find(user => user.email === email);
-    if (user !== undefined && user.password === password) {
-      user.lastLoginDate=this.getNowDate();
-      this.userBehaviorSubject.next(user);
-      localStorage.setItem('user', user.userName);
-      return true;
-    } else {
-      return false;
-    }
+    //create login request body
+    let userData: LogInUser = {
+      email: email,
+      password: password
+    };
+    //flag if to show error it will be send if the response with error
+    let success: boolean = false;
+    this.loginSub = this.http
+      .post(`${authUrl}login`, userData)
+      .pipe(map(data => data as GetUserAfterLoginOrRegister))
+      .subscribe(
+        data => {
+          //create current user
+          let user: GetUser = {
+            _id: data._id,
+            avatarUrl: data.avatarUrl,
+            email: data.email,
+            userHandle: data.userHandle,
+            registrationDate: data.registrationDate,
+            lastLoginDate: data.lastLoginDate
+          };
+          //save in the BehaviorSubject
+          this.userBehaviorSubject.next(user);
+          //save the token
+          localStorage.setItem('token', data.token);
+          //navigate to home page
+          this.router.navigate(['home']);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    //will return only if some thing bad
+    return success;
   }
-
+  //log out function
   logOut() {
+    //clear the log in subscribe
+    if (this.loginSub) {
+      this.loginSub.unsubscribe();
+    }
+    if (this.registerSub) {
+      this.registerSub.unsubscribe();
+    }
+    //current user null
     this.userBehaviorSubject.next(null);
-    localStorage.removeItem('user');
+    //remove the token
+    localStorage.removeItem('token');
   }
-
-  register(user: User): string {
-    let findUser: User = this.users.find(u => u.userName === user.userName);
-    if (findUser) {
-      return 'userName';
-    }
-    findUser = this.users.find(u => u.email === user.email);
-    if (findUser) {
-      return 'email';
-    }
-    this.users.push(user);
-    this.usersBehaviorSubject.next(this.users);
-    this.logIn(user.email, user.password);
-    return 'success';
+  //register function
+  register(user: RegisterUser) {
+    this.registerSub = this.http
+      .post(`${authUrl}register`, user)
+      .pipe(map(data => data as GetUserAfterLoginOrRegister))
+      .subscribe(
+        data => {
+          //create current user
+          let user: GetUser = {
+            _id: data._id,
+            avatarUrl: data.avatarUrl,
+            email: data.email,
+            userHandle: data.userHandle,
+            registrationDate: data.registrationDate,
+            lastLoginDate: data.lastLoginDate
+          };
+          //save in the BehaviorSubject
+          this.userBehaviorSubject.next(user);
+          //save the token
+          localStorage.setItem('token', data.token);
+          //navigate to home page
+          this.router.navigate(['home']);
+        },
+        error => {
+          //update the error msg for the UI to show
+          this.msgBehaviorSubject.next(error.error.message);
+        }
+      );
   }
-
+  //check if the input name is the name of the current user
   isLogedInUser(userName: string): Observable<boolean> {
     return this.connectUser.pipe(
       map(user => {
         if (user) {
-          if (user.userName === userName) {
+          if (user.userHandle === userName) {
             return true;
           } else {
             return false;
@@ -99,20 +147,21 @@ export class UserService {
       })
     );
   }
-
-  isUserStared(userNames: string[]): Observable<boolean> {
-    return this.connectUser.pipe(
-      map(user => {
-        return userNames.find(u => u === user.userName) ? true : false;
-      })
-    );
-  }
-
+  //check if some user is loged in
   isLogedIn(): Observable<boolean> {
     return this.connectUser.pipe(
       map(user => {
         return user ? true : false;
       })
     );
+  }
+
+  ngOnDestroy() {
+    if (this.loginSub) {
+      this.loginSub.unsubscribe();
+    }
+    if (this.registerSub) {
+      this.registerSub.unsubscribe();
+    }
   }
 }

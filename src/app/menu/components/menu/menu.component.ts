@@ -3,6 +3,7 @@ import { UserService } from '../../../core/services/user.service';
 import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { LocalizationService } from '../../../core/services/localization.service';
+import { shareReplay, share } from 'rxjs/operators';
 
 @Component({
   selector: 'app-menu',
@@ -10,12 +11,12 @@ import { LocalizationService } from '../../../core/services/localization.service
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit, OnDestroy  {
-islogedin:Observable<boolean>
+islogedin:Observable<boolean>;
 language:string;
-sub: Subscription;
+languageSub: Subscription;
   constructor(private userService:UserService, private router:Router, private localizationService:LocalizationService) { 
     this.islogedin=this.userService.isLogedIn();
-    this.sub=this.localizationService.selectedLanguage.subscribe(ln=>this.language=ln);
+    this.languageSub=this.localizationService.selectedLanguage.subscribe(ln=>this.language=ln);
   }
 
   ngOnInit() {
@@ -23,11 +24,14 @@ sub: Subscription;
 
   logOut(){
     this.userService.logOut();
-    this.router.navigate(['home'])
+    this.router.navigate(['home']);
   }
 
   ngOnDestroy(){
-    this.sub.unsubscribe();
+    if(this.languageSub){
+      this.languageSub.unsubscribe();
+    }
+    
   }
 
 }

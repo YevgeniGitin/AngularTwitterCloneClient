@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 import { UserService } from '../../../core/services/user.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { LocalizationService } from '../../../core/services/localization.service';
@@ -13,24 +12,21 @@ export class LogInFormComponent implements OnInit, OnDestroy {
   password:string;
   success:boolean=true;
   language:string;
-  sub: Subscription;
+  languageSub: Subscription;
 
-  constructor(private router:Router,private userService:UserService,private localizationService:LocalizationService) {
-    this.sub=this.localizationService.selectedLanguage.subscribe(ln=>this.language=ln);
+  constructor(private userService:UserService,private localizationService:LocalizationService) {
+    this.languageSub=this.localizationService.selectedLanguage.subscribe(ln=>this.language=ln);
    }
 
   ngOnInit() {
   }
-
+//log in
   onSubmit(){
     this.success=this.userService.logIn(this.email,this.password);
-    if(this.success){
-      this.router.navigate(['home'])
-    }
   }
 
   ngOnDestroy(){
-    this.sub.unsubscribe();
+    this.languageSub.unsubscribe();
   }
 
 }

@@ -12,25 +12,29 @@ import { UserService } from '../../../core/services/user.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  tweets:Observable<Post[]>;
-  user:Observable<User>;
-  language:string;
+  tweets: Observable<Post[]>;
+  user: Observable<User>;
+  language: string;
   sub: Subscription;
 
-  constructor( private route: ActivatedRoute,private postService:PostService, private userService:UserService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private postService: PostService,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
-    this.route.paramMap.subscribe((param) => {
-      this.loadProfile(param.get('userName'));
-      this.loadUser(param.get('userName'));
+    this.route.paramMap.subscribe(param => {
+      this.loadUserPosts(param.get('userId'));
+      this.loadUser(param.get('userId'));
     });
   }
-
-  loadUser(userName:string){
-    this.user=this.userService.getUser(userName);
+//load the user for the user card
+  loadUser(userId: string) {
+    this.user = this.userService.getUserById(userId);
   }
-
-  loadProfile(userName:string){
-    this.tweets=this.postService.getUsersPosts(userName);
+//loade users posts for the posts list
+  loadUserPosts(userId: string) {
+    this.tweets = this.postService.getUsersPosts(userId);
   }
 }

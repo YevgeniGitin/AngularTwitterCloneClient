@@ -1,8 +1,15 @@
 export interface Post{
-    id:string;
-    img:string;
-    userName:string;
-    date:string;
-    text:string;
-    stars:string[];
+    _id: string;
+    text: string;
+    userId: string;
+    userHandle: string;
+    postDate: string;
+    avatarUrl: string;
+    stars: number;
+    starredByMe: boolean;
+}
+
+export interface Star{
+    stars: number;
+  starredByMe: boolean;
 }

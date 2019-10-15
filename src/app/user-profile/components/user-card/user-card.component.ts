@@ -11,18 +11,16 @@ import { LocalizationService } from '../../../core/services/localization.service
 export class UserCardComponent implements OnInit,OnDestroy {
   @Input() user:User;
   language:string;
-  sub: Subscription;
+  languageSub: Subscription;
 
   constructor(private localizationService:LocalizationService) {
-    this.sub=this.localizationService.selectedLanguage.subscribe(ln=>this.language=ln);
+    this.languageSub=this.localizationService.selectedLanguage.subscribe(ln=>this.language=ln);
    }
 
   ngOnInit() {
   }
-
+//unsubscribe()
   ngOnDestroy(){
-    if(this.sub){
-      this.sub.unsubscribe();
-    }
+    this.languageSub.unsubscribe();
   }
 }

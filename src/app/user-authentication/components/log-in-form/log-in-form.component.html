@@ -10,8 +10,7 @@
             <input name="password" matInput type="password" placeholder="{{'Password'|translation:language}}" [(ngModel)]="password" #passwordInput="ngModel" required>
             <mat-error *ngIf="passwordInput.errors?.required">{{'Password is required'|translation:language}}</mat-error>
         </mat-form-field>
-
         <button type="submit" mat-stroked-button color="primary" [disabled]="logInForm.form.invalid">{{'LogIn'|translation:language}}</button>
-        <mat-error *ngIf="!success">{{'email or password is incorrect!!!!!!!'|translation:language}}</mat-error>
+        <mat-error *ngIf="!success">{{'email or password is incorrect!!!!!!!'|translation:language }}</mat-error>
     </form>
 </div>

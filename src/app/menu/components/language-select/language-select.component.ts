@@ -11,11 +11,11 @@ export class LanguageSelectComponent implements OnInit {
   language:string;
   constructor(private localizationService:LocalizationService) { 
     this.languages=this.localizationService.languages;
+    //check if we saved language in the local storage
     this.language=localStorage.getItem('language')?localStorage.getItem('language'):'EN'
   }
-
   ngOnInit() { }
-
+//save the language in lokal storage and change in the localization server
   changeLanguage(){
     localStorage.setItem('language',this.language);
     this.localizationService.changelanguage(this.language);

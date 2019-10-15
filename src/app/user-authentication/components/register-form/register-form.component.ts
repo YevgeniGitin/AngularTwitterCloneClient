@@ -1,13 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from '../../../core/models/user';
+import { User, RegisterUser } from '../../../core/models/user';
 import { UserService } from '../../../core/services/user.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { LocalizationService } from '../../../core/services/localization.service';
-
+//pattern that checks min length 8 and must include atleast one capital letter and one number
 const passwordPattern:string='^(?=.*?[A-Z])(?=.*?[0-9]).{8,}$';
-const profileImage:string='../../../assets/img/profile.png';
 
 @Component({
   selector: 'app-register-form',
@@ -16,11 +15,11 @@ const profileImage:string='../../../assets/img/profile.png';
 })
 
 export class RegisterFormComponent implements OnInit, OnDestroy {
-  userNameExists:boolean=false;
-  emailExists:boolean=false;
   registerForm: FormGroup;
   language:string;
-  sub: Subscription;
+  languageSub: Subscription;
+  registerSub:Subscription;
+  resultRegister:string;
 
   constructor( private fb: FormBuilder,private userService:UserService,private router:Router, private localizationService:LocalizationService) { 
     this.registerForm = this.fb.group({
@@ -28,12 +27,12 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
       userNameInput: ['',Validators.required],
       passwordInput: ['', [Validators.required,Validators.pattern(passwordPattern)]],
     });
-    this.sub=this.localizationService.selectedLanguage.subscribe(ln=>this.language=ln);
+    this.languageSub=this.localizationService.selectedLanguage.subscribe(ln=>this.language=ln);
   }
 
   ngOnInit() {
   }
-
+//get the data from the fields in the form
   get emailInput(): AbstractControl {
     return this.registerForm.get('emailInput');
   }
@@ -49,28 +48,22 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
 
   onSubmit(){
     const formModel = this.registerForm.value;
-    let user:User={
-      img: profileImage,
+    //create user for register
+    let user:RegisterUser={
       email: formModel.emailInput,
-      userName: formModel.userNameInput,
+      userHandle: formModel.userNameInput,
       password: formModel.passwordInput,
-      registrationDate: this.userService.getNowDate(),
-      lastLoginDate:''
     };
-    let resultRegister:string=this.userService.register(user);
-    if(resultRegister==='userName'){
-      this.userNameExists=true;
-      this.emailExists=false;
-    }
-    else if(resultRegister==='email'){
-      this.emailExists=true;
-      this.userNameExists=false;
-    }else{
-      this.router.navigate(['home']);
-    }
+    //send to the server the request
+    this.userService.register(user);
+    //get the ans of the server(msg)
+    this.registerSub=this.userService.msg.subscribe(msg=>this.resultRegister=msg);
   }
-
+//unsubscribe all the subscribes
   ngOnDestroy(){
-    this.sub.unsubscribe();
+    if(this.registerSub){
+      this.registerSub.unsubscribe();
+    }
+    this.languageSub.unsubscribe();
   }
 }

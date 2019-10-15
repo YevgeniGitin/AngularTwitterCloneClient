@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
-  {path:'profile/:userName',component:ProfileComponent, pathMatch:'full'},
+  {path:'profile/:userId',component:ProfileComponent, pathMatch:'full'},
 ];
 
 @NgModule({

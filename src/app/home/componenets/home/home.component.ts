@@ -10,10 +10,8 @@ import { UserService } from '../../../core/services/user.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
   tweets: Observable<Post[]>;
   isLogedIn: Observable<boolean>;
-  post:string;
 
   constructor(private postService:PostService,private userService:UserService) { }
 
