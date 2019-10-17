@@ -20,9 +20,13 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
   languageSub: Subscription;
   registerSub:Subscription;
   resultRegister:string;
+  path:string;
+  file: File;
+  fd=new FormData;
 
   constructor( private fb: FormBuilder,private userService:UserService,private router:Router, private localizationService:LocalizationService) { 
     this.registerForm = this.fb.group({
+      pathInput: ['',],
       emailInput: ['', [Validators.required, Validators.email]],
       userNameInput: ['',Validators.required],
       passwordInput: ['', [Validators.required,Validators.pattern(passwordPattern)]],
@@ -37,6 +41,14 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
     return this.registerForm.get('emailInput');
   }
 
+  get pathInput(): AbstractControl {
+    return this.registerForm.get('pathInput');
+  }
+
+  get imageInput(): AbstractControl {
+    return this.registerForm.get('imageInput');
+  }
+
   get userNameInput(): AbstractControl {
     return this.registerForm.get('userNameInput');
   }
@@ -45,17 +57,21 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
     return this.registerForm.get('passwordInput');
   }
 
+uploaded(event){
+  this.file = event.target.files[0];
+  this.registerForm.controls['pathInput'].setValue(this.file.name);
+}
 
   onSubmit(){
     const formModel = this.registerForm.value;
     //create user for register
-    let user:RegisterUser={
-      email: formModel.emailInput,
-      userHandle: formModel.userNameInput,
-      password: formModel.passwordInput,
-    };
+    this.fd.append('email',formModel.emailInput);
+    this.fd.append('userHandle',formModel.userNameInput);
+    this.fd.append('password',formModel.passwordInput);
+    this.fd.append('image',this.file? this.file: null);
+    console.log(this.fd);
     //send to the server the request
-    this.userService.register(user);
+    this.userService.register(this.fd);
     //get the ans of the server(msg)
     this.registerSub=this.userService.msg.subscribe(msg=>this.resultRegister=msg);
   }

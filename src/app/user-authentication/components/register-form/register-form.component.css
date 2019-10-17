@@ -22,8 +22,20 @@ form {
     border-radius: 1.5rem;
 }
 
+.uploadBox {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 button {
+    margin: 1rem 0 1rem 0;
+}
+
+.upload {
     margin: 3rem 0 1rem 0;
+    font-size: 1rem;
 }
 
 mat-error {
@@ -34,6 +46,13 @@ mat-error {
 mat-form-field {
     width: 90%;
     margin-bottom: 1rem;
+}
+
+.lable {
+    background: none;
+    border: none;
+    outline: 0;
+    font-size: 0.7rem;
 }
 
 @media (max-width: 425px) {

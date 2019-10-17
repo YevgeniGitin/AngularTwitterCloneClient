@@ -103,9 +103,9 @@ export class UserService implements OnDestroy {
     localStorage.removeItem('token');
   }
   //register function
-  register(user: RegisterUser) {
+  register(fd) {
     this.registerSub = this.http
-      .post(`${authUrl}register`, user)
+      .post(`${authUrl}register`, fd)
       .pipe(map(data => data as GetUserAfterLoginOrRegister))
       .subscribe(
         data => {

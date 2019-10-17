@@ -17,7 +17,11 @@
             <input name="password" matInput type="password" placeholder="{{'Password'|translation:language}}" formControlName="passwordInput">
             <mat-error *ngIf="passwordInput.errors?.pattern">{{'Password should include at least 8 characters and at least one capital letter and one number'|translation:language}}</mat-error>
         </mat-form-field>
-
+        <div class="uploadBox">
+            <button class="upload" type="button" mat-stroked-button color="primary" (click)="image.click()">{{'profile image'|translation:language}}</button>
+            <input type="text" formControlName="pathInput" class="lable" readonly>
+            <input #image name="image" hidden type="file" accept="image/*" (change)="uploaded($event)">
+        </div>
         <button type="submit" mat-stroked-button color="primary" [disabled]="this.registerForm.invalid">{{'Register'|translation:language}}</button>
     </form>
 </div>

@@ -7,7 +7,8 @@
         "User name is already in use",
         "Password should include at least 8 characters and at least one capital letter and one number",
         "Email is already in use", "Registration date", "Last logIn date", "Post", "Reply Window",
-        "Write your reply message", "No Thanks", "Are you sure you want to delete?"
+        "Write your reply message", "No Thanks", "Are you sure you want to delete?",
+        "profile image"
 
     ],
     "RUS": [
@@ -18,7 +19,8 @@
         "Это имя пользователя уже существует",
         "Пароль должен содержать не менее 8 символов и не менее одной заглавной буквы и одного числа",
         "е-мейл уже используется", "Дата регистрации", "Дата последнего входа", "опубликование", "Окно ответа",
-        "Напишите ваше ответное сообщение", "Нет, спасибо", "Вы уверены, что хотите удалить?"
+        "Напишите ваше ответное сообщение", "Нет, спасибо", "Вы уверены, что хотите удалить?",
+        "изображение профиля"
 
     ]
 }
