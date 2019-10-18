@@ -22,7 +22,6 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
   resultRegister:string;
   path:string;
   file: File;
-  fd=new FormData;
 
   constructor( private fb: FormBuilder,private userService:UserService,private router:Router, private localizationService:LocalizationService) { 
     this.registerForm = this.fb.group({
@@ -63,15 +62,16 @@ uploaded(event){
 }
 
   onSubmit(){
+    const fd=new FormData;
     const formModel = this.registerForm.value;
     //create user for register
-    this.fd.append('email',formModel.emailInput);
-    this.fd.append('userHandle',formModel.userNameInput);
-    this.fd.append('password',formModel.passwordInput);
-    this.fd.append('image',this.file? this.file: null);
-    console.log(this.fd);
+    fd.append('email',formModel.emailInput);
+    fd.append('userHandle',formModel.userNameInput);
+    fd.append('password',formModel.passwordInput);
+    fd.append('image',this.file? this.file: null);
+    console.log(fd);
     //send to the server the request
-    this.userService.register(this.fd);
+    this.userService.register(fd);
     //get the ans of the server(msg)
     this.registerSub=this.userService.msg.subscribe(msg=>this.resultRegister=msg);
   }

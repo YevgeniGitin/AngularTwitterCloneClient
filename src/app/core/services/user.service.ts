@@ -60,6 +60,9 @@ export class UserService implements OnDestroy {
     };
     //flag if to show error it will be send if the response with error
     let success: boolean = false;
+    if(this.loginSub){
+      this.loginSub.unsubscribe();
+    }
     this.loginSub = this.http
       .post(`${authUrl}login`, userData)
       .pipe(map(data => data as GetUserAfterLoginOrRegister))
@@ -104,6 +107,9 @@ export class UserService implements OnDestroy {
   }
   //register function
   register(fd) {
+    if(this.registerSub){
+      this.registerSub.unsubscribe();
+    }
     this.registerSub = this.http
       .post(`${authUrl}register`, fd)
       .pipe(map(data => data as GetUserAfterLoginOrRegister))
