@@ -3,7 +3,7 @@ import { UserService } from '../../../core/services/user.service';
 import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { LocalizationService } from '../../../core/services/localization.service';
-import { shareReplay, share } from 'rxjs/operators';
+import { GetUser } from '../../../core/models/user';
 
 @Component({
   selector: 'app-menu',
@@ -12,11 +12,13 @@ import { shareReplay, share } from 'rxjs/operators';
 })
 export class MenuComponent implements OnInit, OnDestroy  {
 islogedin:Observable<boolean>;
+currentUser:Observable<GetUser>;
 language:string;
 languageSub: Subscription;
   constructor(private userService:UserService, private router:Router, private localizationService:LocalizationService) { 
     this.islogedin=this.userService.isLogedIn();
     this.languageSub=this.localizationService.selectedLanguage.subscribe(ln=>this.language=ln);
+    this.currentUser=this.userService.connectUser;
   }
 
   ngOnInit() {

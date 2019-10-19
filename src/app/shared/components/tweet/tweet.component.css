@@ -25,6 +25,11 @@ img {
     border-radius: 1rem;
 }
 
+img:hover {
+    cursor: pointer;
+    border: 1px solid blue;
+}
+
 .profile-img {
     width: 20%;
     height: 100%;
@@ -55,13 +60,13 @@ img {
 }
 
 .user-info>label:first-child:hover {
-    text-decoration: underline;
     color: blue;
     cursor: pointer;
 }
 
 .user-info>label:first-child {
     margin-left: 0;
+    text-decoration: underline;
 }
 
 .post {
@@ -81,13 +86,3 @@ img {
 app-tweet-actions {
     width: 95%;
 }
-
-
-/* @media (max-width: 425px) {
-    .tweet-cart {
-        width: 95%;
-        height: 85%;
-        display: flex;
-        justify-content: flex-start;
-    }
-} */

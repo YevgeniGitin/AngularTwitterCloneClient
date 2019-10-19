@@ -1,7 +1,7 @@
 <div class="tweet">
     <div class="tweet-cart">
         <div class="profile-img">
-            <img [src]="this.tweet.avatarUrl" alt="profile image">
+            <img [src]="this.tweet.avatarUrl" alt="profile image" (click)="openProfile(this.tweet.userId)">
         </div>
         <div class="tweet-data">
             <div class="user-info">

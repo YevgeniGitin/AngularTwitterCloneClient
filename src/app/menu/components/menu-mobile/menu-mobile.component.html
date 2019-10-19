@@ -5,5 +5,6 @@
     <button mat-menu-item routerLink="home">{{'Home'|translation:language}}</button>
     <button mat-menu-item *ngIf="!(islogedin|async)" routerLink="logIn">{{'LogIn'|translation:language}}</button>
     <button mat-menu-item *ngIf="!(islogedin|async)" routerLink="register">{{'Register'|translation:language}}</button>
+    <button mat-menu-item *ngIf="(islogedin|async)" [routerLink]="['/profile',(currentUser | async)._id]">{{'My profile'|translation:language}}</button>
     <button mat-menu-item *ngIf="islogedin|async" (click)="logOut()">{{'LogOut'|translation:language}}</button>
 </mat-menu>
